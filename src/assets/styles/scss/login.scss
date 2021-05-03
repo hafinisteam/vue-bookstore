@@ -1,0 +1,31 @@
+#login-sidebar,
+#register-sidebar {
+
+  .b-sidebar {
+    width: 18.75rem;
+
+    .b-sidebar-body {
+      background: white;
+
+      .close-login {
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        opacity: .5;
+
+        &:hover {
+          opacity: 0.75;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+
+  #login-sidebar,
+  #register-sidebar {
+    .b-sidebar {
+      width: 31.25rem;
+    }
+  }
+}
