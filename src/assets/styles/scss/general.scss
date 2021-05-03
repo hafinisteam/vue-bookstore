@@ -1,0 +1,27 @@
+a,
+a:hover {
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #f30b0b;
+}
+
+.nav {
+  list-style: none
+}
+
+.nav-link {
+  display: block;
+  padding: .5rem 1rem;
+  cursor: pointer;
+}
+
+.fill-primary {
+  fill: #f75454;
+}
+
+.invalid-feedback {
+  display: block;
+}
