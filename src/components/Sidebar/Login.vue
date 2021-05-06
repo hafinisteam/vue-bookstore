@@ -29,15 +29,10 @@
           </b-alert>
         </div>
         <form @submit.prevent="login" class="form-login p-4 p-md-6">
-          <b-form-group
-            id="email"
-            label="Email *"
-            label-for="email"
-            class="mb-4"
-          >
+          <b-form-group label="Email *" label-for="email" class="mb-4">
             <b-form-input
               id="email"
-              type="text"
+              type="email"
               v-model.trim="$v.email.$model"
             ></b-form-input>
             <div v-if="$v.email.$error" class="invalid-feedback">
@@ -45,12 +40,7 @@
               <span v-if="!$v.email.email">Email is invalid</span>
             </div>
           </b-form-group>
-          <b-form-group
-            id="password"
-            label="Password *"
-            label-for="password"
-            class="mb-4"
-          >
+          <b-form-group label="Password *" label-for="password" class="mb-4">
             <b-form-input
               id="password"
               type="password"
@@ -93,8 +83,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import { BASE_URL } from "@/assets/urls/config";
 import { validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
 
@@ -133,18 +121,17 @@ export default {
         return;
       }
     },
-    login() {
+    login: function () {
       this.handleSubmit();
-      axios
-        .post(`${BASE_URL}auth/login`, {
-          email: this.email,
-          password: this.password,
-        })
+      let email = this.email;
+      let password = this.password;
+      this.$store
+        .dispatch("login", { email, password })
         .then((response) => {
           if (response.data.code == "SUCCESS") {
             this.visible = false;
             this.showSuccess();
-            this.$store.commit("loginSuccess", response.data.data.user);
+            this.$store.commit("saveToken", response.data.data.token);
           } else {
             this.error = response.data.message;
           }

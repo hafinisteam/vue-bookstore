@@ -19,6 +19,14 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
+  {
+    path: "/my-account/edit-account",
+    name: "Edit account",
+    component: () =>
+      import(
+        /* webpackChunkName: "edit-account" */ "../components/MyAccount/EditAccount.vue"
+      ),
+  },
 ];
 
 const router = new VueRouter({

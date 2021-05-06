@@ -63,6 +63,14 @@
                   </span>
                 </router-link>
               </li>
+              <li v-if="isLoggedIn" class="nav-item font-size-4">
+                <span
+                  @click="logout"
+                  class="nav-link link-black-100 font-size-3 px-3"
+                >
+                  <i class="fas fa-sign-out-alt"></i>
+                </span>
+              </li>
               <li class="nav-item font-size-4">
                 <router-link
                   v-b-toggle.sidebar-register
@@ -88,7 +96,7 @@
         </div>
       </div>
     </div>
-    <div class="main-header relative">
+    <div class="main-header relative border-bottom">
       <div class="container-fluid px-3 px-md-5 px-xl-8d75 py-2 py-md-0">
         <div class="d-flex align-items-center relative flex-wrap">
           <div class="offcanvas-toggler mr-4 mr-lg-8">
@@ -179,6 +187,16 @@ export default {
   computed: {
     getUserName() {
       return this.$store.getters.firstName;
+    },
+    isLoggedIn: function () {
+      return this.$store.getters.isLoggedIn;
+    },
+  },
+  methods: {
+    logout: function () {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/");
+      });
     },
   },
 };

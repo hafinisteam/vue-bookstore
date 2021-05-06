@@ -29,15 +29,10 @@
           </b-alert>
         </div>
         <form @submit.prevent="register" class="form-login p-4 p-md-6">
-          <b-form-group
-            id="email"
-            label="Email *"
-            label-for="email"
-            class="mb-4"
-          >
+          <b-form-group label="Email *" label-for="email" class="mb-4">
             <b-form-input
               id="email"
-              type="text"
+              type="email"
               v-model.trim="$v.email.$model"
             ></b-form-input>
             <div v-if="$v.email.$error" class="invalid-feedback">
@@ -45,12 +40,7 @@
               <span v-if="!$v.email.email">Email is invalid</span>
             </div>
           </b-form-group>
-          <b-form-group
-            id="password"
-            label="Password *"
-            label-for="password"
-            class="mb-4"
-          >
+          <b-form-group label="Password *" label-for="password" class="mb-4">
             <b-form-input
               id="password"
               type="password"
@@ -63,12 +53,7 @@
               >
             </div>
           </b-form-group>
-          <b-form-group
-            id="firstName"
-            label="First name *"
-            label-for="firstName"
-            class="mb-4"
-          >
+          <b-form-group label="First name *" label-for="firstName" class="mb-4">
             <b-form-input
               id="firstName"
               type="text"
@@ -81,12 +66,7 @@
               >
             </div>
           </b-form-group>
-          <b-form-group
-            id="lastName"
-            label="Last name *"
-            label-for="lastName"
-            class="mb-4"
-          >
+          <b-form-group label="Last name *" label-for="lastName" class="mb-4">
             <b-form-input
               id="lastName"
               type="text"
@@ -100,7 +80,6 @@
             </div>
           </b-form-group>
           <b-form-group
-            id="displayName"
             label="Display name (optional)"
             label-for="displayName"
             class="mb-4"
@@ -133,8 +112,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import { BASE_URL } from "@/assets/urls/config";
 import { validationMixin } from "vuelidate";
 import { required, minLength, email } from "vuelidate/lib/validators";
 export default {
@@ -182,22 +159,19 @@ export default {
         return;
       }
     },
-    register() {
+    register: function () {
       this.handleSubmit();
-      axios
-        .post(`${BASE_URL}auth/register`, {
-          email: this.email,
-          password: this.password,
-          firstName: this.firstName,
-          lastName: this.lastName,
-          display: this.display,
-        })
+      let email = this.email;
+      let password = this.password;
+      let firstName = this.firstName;
+      let lastName = this.lastName;
+      let display = this.display;
+      this.$store
+        .dispatch("register", { email, password, firstName, lastName, display })
         .then((response) => {
-          console.log(response);
           if (response.data.code == "SUCCESS") {
             this.visible = false;
             this.showSuccess();
-            this.$store.commit("registerSuccess", response.data.data.user);
           } else {
             this.error = response.data.message;
           }
