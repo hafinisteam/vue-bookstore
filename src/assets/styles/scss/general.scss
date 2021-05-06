@@ -4,9 +4,6 @@ a:hover {
   text-decoration: none;
 }
 
-a:hover {
-  color: #f30b0b;
-}
 
 .nav {
   list-style: none
@@ -16,6 +13,11 @@ a:hover {
   display: block;
   padding: .5rem 1rem;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #f30b0b;
 }
 
 .fill-primary {
