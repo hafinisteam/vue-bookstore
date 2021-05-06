@@ -17,7 +17,7 @@ export default new Vuex.Store({
     registerSuccess(state, payload) {
       state.user = payload;
     },
-    getToken(state, payload) {
+    saveToken(state, payload) {
       state.token = payload;
     },
     auth_success(state, token, user) {
@@ -92,12 +92,16 @@ export default new Vuex.Store({
       });
     },
     logout({ commit }) {
-      return new Promise((resolve) => {
-        commit("logout");
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        delete axios.defaults.headers.common["Authorization"];
-        resolve();
+      return new Promise((resolve, reject) => {
+        try {
+          commit("logout");
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          delete axios.defaults.headers.common["Authorization"];
+          resolve();
+        } catch (err) {
+          reject(err);
+        }
       });
     },
   },

@@ -131,7 +131,7 @@ export default {
           if (response.data.code == "SUCCESS") {
             this.visible = false;
             this.showSuccess();
-            this.$store.commit("getToken", response.data.data.token);
+            this.$store.commit("saveToken", response.data.data.token);
           } else {
             this.error = response.data.message;
           }
